@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Discord;
@@ -11,6 +12,11 @@ namespace SmileSpeakBot.Modules.Public
 {
     public class PublicModule : ModuleBase
     {
+        private Dictionary<char, string> _emojiDict = new Dictionary<char, string>();
+
+        private DictReplacer _dr;
+
+
         [Command("invite")]
         [Summary("Returns the OAuth2 Invite URL of the bot")]
         public async Task Invite()
