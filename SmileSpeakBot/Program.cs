@@ -11,7 +11,7 @@ namespace SmileSpeakBot
         // Convert our sync main to an async main.
         public static void Main(string[] args)
         {
-            if (args[0] == null)
+            if (args.Length == 0)
             {
                 Console.WriteLine("No token provided. Exiting");
                 return;

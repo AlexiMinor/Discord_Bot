@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26403.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "SmileSpeakBot", "DiscordExampleBot\SmileSpeakBot.csproj", "{29B973A9-ABD1-4A00-81F8-4A59589BBDE2}"
+Project("{13B669BE-BB05-4DDF-9536-439F39A36129}") = "SmileSpeakBot", "SmileSpeakBot\SmileSpeakBot.csproj", "{29B973A9-ABD1-4A00-81F8-4A59589BBDE2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
