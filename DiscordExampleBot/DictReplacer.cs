@@ -16,6 +16,7 @@ namespace SmileSpeakBot
         public string Replace(string inputString)
         {
             string output = "";
+            inputString = inputString.ToLower();
             foreach (char c in inputString)
             {
                 output += RepDict.ContainsKey(c) ? RepDict[c] : new string(c, 1);

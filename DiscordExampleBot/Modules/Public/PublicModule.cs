@@ -12,12 +12,10 @@ namespace SmileSpeakBot.Modules.Public
 {
     public class PublicModule : ModuleBase
     {
-        private Dictionary<char, string> _emojiDict = new Dictionary<char, string>();
-
-        private DictReplacer _dr;
+        private DictReplacer _dr = new DictReplacer(Dicts.EmojiDict);
 
 
-        [Command("invite")]
+        [Command("ssb-invite")]
         [Summary("Returns the OAuth2 Invite URL of the bot")]
         public async Task Invite()
         {
@@ -26,25 +24,17 @@ namespace SmileSpeakBot.Modules.Public
                 $"A user with `MANAGE_SERVER` can invite me to your server here: <https://discordapp.com/oauth2/authorize?client_id={application.Id}&scope=bot>");
         }
 
-        [Command("leave")]
-        [Summary("Instructs the bot to leave this Guild.")]
-        [RequireUserPermission(GuildPermission.ManageGuild)]
-        public async Task Leave()
+
+        [Command("smile")]
+        [Alias("emo")]
+        [Summary("Emoji-echoes the provided input")]
+        public async Task Emo([Remainder] string input)
         {
-            if (Context.Guild == null) { await ReplyAsync("This command can only be ran in a server."); return; }
-            await ReplyAsync("Leaving~");
-            await Context.Guild.LeaveAsync();
+            await ReplyAsync(_dr.Replace(input));
         }
 
-        [Command("say")]
-        [Alias("echo")]
-        [Summary("Echos the provided input")]
-        public async Task Say([Remainder] string input)
-        {
-            await ReplyAsync(input);
-        }
-
-        [Command("info")]
+        [Command("ssb-info")]
+        [Summary("Returns some tech(and not tech) info")]
         public async Task Info()
         {
             var application = await Context.Client.GetApplicationInfoAsync();
@@ -60,6 +50,19 @@ namespace SmileSpeakBot.Modules.Public
                 $"- Guilds: {(Context.Client as DiscordSocketClient).Guilds.Count}\n" +
                 $"- Channels: {(Context.Client as DiscordSocketClient).Guilds.Sum(g => g.Channels.Count)}" +
                 $"- Users: {(Context.Client as DiscordSocketClient).Guilds.Sum(g => g.Users.Count)}"
+            );
+        }
+
+        [Command("ssb-help")]
+        [Summary("Shows a help message")]
+        public async Task Help()
+        {
+            await ReplyAsync(
+                $"{Format.Bold("List of commands")}\n" +
+                $"{Format.Bold("!emo")} *text* or {Format.Bold("!smile")} *text* - the purpose, duh.\n" +
+                $"{Format.Bold("!ssb-invite")} - If you want me for your server.\n" +
+                $"{Format.Bold("!ssb-info")} - If you want to know more about me.\n" +
+                $"{Format.Bold("!ssb-help")} - If you want to read this again.\n"
             );
         }
 

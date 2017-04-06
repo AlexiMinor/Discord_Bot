@@ -9,25 +9,28 @@ namespace SmileSpeakBot
     public class Program
     {
         // Convert our sync main to an async main.
-        public static void Main(string[] args) =>
-            new Program().Start(args).GetAwaiter().GetResult();
+        public static void Main(string[] args)
+        {
+            if (args[0] == null)
+            {
+                Console.WriteLine("No token provided. Exiting");
+                return;
+            }
+            _token = args[0];
+            new Program().Start().GetAwaiter().GetResult();
+        }
 
+        private static string _token;
         private DiscordSocketClient _client;
         private CommandHandler _handler;
 
-        public async Task Start(string[] args)
+        public async Task Start()
         {
             // Define the DiscordSocketClient
             _client = new DiscordSocketClient();
-            if (args[0] == null)
-            {
-                await Log(new LogMessage(LogSeverity.Critical, "Start", "No token provided. Exiting"));
-                return;
-            }
-            var token = args[0];
 
             // Login and connect to Discord.
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, _token);
             await _client.StartAsync();
 
             var map = new DependencyMap();
