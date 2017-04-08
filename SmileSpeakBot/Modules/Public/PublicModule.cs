@@ -12,7 +12,7 @@ namespace SmileSpeakBot.Modules.Public
 {
     public class PublicModule : ModuleBase
     {
-        private DictReplacer _dr = new DictReplacer(Dicts.EmojiDict);
+        private readonly DictReplacer _dr = new DictReplacer(Dicts.EmojiDictUnicode);
 
 
         [Command("ssb-invite")]
