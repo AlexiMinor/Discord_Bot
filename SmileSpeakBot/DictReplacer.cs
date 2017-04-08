@@ -19,7 +19,11 @@ namespace SmileSpeakBot
             inputString = inputString.ToLower();
             foreach (char c in inputString)
             {
-                output += RepDict.ContainsKey(c) ? RepDict[c] : new string(c, 1);
+                output += RepDict.ContainsKey(c) ? RepDict[c]+" " : new string(c, 1);
+                if (c == ' ')
+                {
+                    output += "  ";
+                }
             }
             return output;
         }
